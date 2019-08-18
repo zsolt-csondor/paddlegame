@@ -1,0 +1,21 @@
+{
+  "name": "paddlegame",
+  "version": "0.1.0",
+  "description": "A first go at building a simple game using webpack and npm.",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "serve": "npm run watch & live-server",
+    "dev": "nodemon index"
+  },
+  "author": "Zsoltiking",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
+  }
+}

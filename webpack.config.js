@@ -8,4 +8,12 @@ module.exports = {
     path: path.join(__dirname, "public"),
     filename: "bundle.js"
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  }
 }

@@ -6,6 +6,7 @@ html, body {
 }
 
 #gameScreen {
+    background-color: #eeeeee;
     border: 1px solid black;
     display: block;
     width: 100%;

@@ -13,6 +13,8 @@ export default class InputHandler {
           game.togglePause();
       }
       else if(event.keyCode === 32) {
+          if(game.gamestate === game.GAMESTATES.RUNNING) return;
+          
           game.start();
       }
     });

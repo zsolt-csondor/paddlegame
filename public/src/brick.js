@@ -21,7 +21,7 @@ export default class Brick {
         this.context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         this.context.fillStyle = "#ff0000";
-        this.context.fillRect(this.position.x+1, this.position.y-1, this.width-1, this.height-1);
+        this.context.fillRect(this.position.x, this.position.y, this.width-1, this.height-1);
     }
 
     update() {

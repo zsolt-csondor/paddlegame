@@ -7,18 +7,18 @@ let context = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const GAME_WIDTH = canvas.width;
-const GAME_HEIGHT = canvas.height;
+context.width = canvas.width;
+context.height = canvas.height;
 
 let lastTime = 0;
 
-let game = new Game(context, GAME_WIDTH, GAME_HEIGHT);
+const game = new Game(context);
 
 function gameLoop(timestamp) {
   let dt = timestamp - lastTime;
   lastTime = timestamp;
 
-  context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+  context.clearRect(0, 0, context.width, context.height);
 
   game.update(dt);
   game.draw();

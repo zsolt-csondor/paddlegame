@@ -1,18 +1,18 @@
 import Paddle from "./paddle.js";
 import Ball from "./ball.js";
-import Brick from "./brick.js";
 import InputHandler from "./input.js";
 import {buildLevel, levels} from "./levels.js";
+import displayMessageScreen from "./displayMessageScreen.js";
 
 //TODO: create a config class for the game parameters like width, height, etc.
 //TODO: don't pass the whole game to other components if not necessary
 
 export default class Game {
-    constructor(context, gameWidth, gameHeight) {
+    constructor(context) {
         this.context = context;
 
-        this.gameWidth = gameWidth;
-        this.gameHeight = gameHeight;
+        this.gameWidth = context.width;
+        this.gameHeight = context.height;
 
         this.GAMESTATES = {
             PAUSED: 0,
@@ -52,15 +52,7 @@ export default class Game {
         [...this.gameObjects, ...this.bricks].forEach((gameObj) => gameObj.draw());
 
         if(this.gamestate === this.GAMESTATES.PAUSED) {
-            this.context.rect(0,0, this.gameWidth, this.gameHeight);
-            this.context.fillStyle = "rgba(0, 0, 0, 0.5)";
-            this.context.fill();
-
-            this.context.font = "30px Arial";
-            this.context.fillStyle = "#ffffff";
-            this.context.textAlign = "center";
-            this.context.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2);
-
+            displayMessageScreen("Paused", this.context);
         }
         else if(this.gamestate === this.GAMESTATES.MENU) {
             this.context.rect(0, 0, this.gameWidth, this.gameHeight);

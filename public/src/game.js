@@ -46,6 +46,7 @@ export default class Game {
             
                 this.currentLevel = 0;
                 this.lives = 2;
+                this.ball.resetPosition();
         }
 
         //If we lost a life just stay on the current level
@@ -64,6 +65,7 @@ export default class Game {
         }
         else if(this.gamestate === this.GAMESTATES.NEWLEVEL) {
             displayMessageScreen("Level cleared! Press Space to load the next level", this.context);
+            this.ball.resetPosition();
         }
         else if(this.gamestate === this.GAMESTATES.LOSTLIFE) {
             let life = (this.lives === 1) ? "life" : "lives";

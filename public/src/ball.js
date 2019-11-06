@@ -52,9 +52,15 @@ export default class Ball {
         if(this.position.y - this.radius <= 0) {
             this.speed.y *= -1;
         }
+
         //Bottom wall: if the ball falls through, its game over!
         if(this.position.y + this.radius >= this.gameHeight) {
             this.game.lives--;
+            //Otherwise it is game over and the game update function will handle that
+            if(this.game.lives > 0) {
+                this.game.gamestate = this.game.GAMESTATES.LOSTLIFE;
+            }
+
             this.resetPosition();
         }
 

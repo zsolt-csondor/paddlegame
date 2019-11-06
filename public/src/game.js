@@ -6,6 +6,7 @@ import displayMessageScreen from "./displayMessageScreen.js";
 
 //TODO: create a config class for the game parameters like width, height, etc.
 //TODO: don't pass the whole game to other components if not necessary
+//IDEA: reset ball to a random position and direction after lost life (somewhere under the bricks)
 
 export default class Game {
     constructor(context) {
@@ -20,7 +21,8 @@ export default class Game {
             MENU: 2,
             GAMEOVER: 3,
             NEWLEVEL: 4,
-            GAMEWON: 5
+            LOSTLIFE: 5,
+            GAMEWON: 6
         };
         this.gamestate = this.GAMESTATES.MENU;
 
@@ -40,10 +42,16 @@ export default class Game {
     start() {
         //If the game has ended, reset the level index before rebuilding the level
         if(this.gamestate === this.GAMESTATES.GAMEOVER
-            || this.gamestate === this.GAMESTATES.GAMEWON) this.currentLevel = 0;
+            || this.gamestate === this.GAMESTATES.GAMEWON) { 
+            
+                this.currentLevel = 0;
+                this.lives = 2;
+        }
 
-        this.bricks = buildLevel(this, this.levels[this.currentLevel]);
-        this.lives = 2;
+        //If we lost a life just stay on the current level
+        if(this.gamestate !== this.GAMESTATES.LOSTLIFE) {
+            this.bricks = buildLevel(this, this.levels[this.currentLevel]);
+        }
 
         this.gamestate = this.GAMESTATES.RUNNING;
     }
@@ -53,6 +61,14 @@ export default class Game {
 
         if(this.gamestate === this.GAMESTATES.PAUSED) {
             displayMessageScreen("Paused", this.context);
+        }
+        else if(this.gamestate === this.GAMESTATES.NEWLEVEL) {
+            displayMessageScreen("Level cleared! Press Space to load the next level", this.context);
+        }
+        else if(this.gamestate === this.GAMESTATES.LOSTLIFE) {
+            let life = (this.lives === 1) ? "life" : "lives";
+            let msg = "You have " + this.lives + " " + life + " left. Press Space to continue";
+            displayMessageScreen(msg, this.context);
         }
         else if(this.gamestate === this.GAMESTATES.MENU) {
             this.context.rect(0, 0, this.gameWidth, this.gameHeight);
@@ -89,7 +105,9 @@ export default class Game {
 
     update(dt) {
         if(this.gamestate === this.GAMESTATES.PAUSED || this.gamestate === this.GAMESTATES.MENU
-        || this.gamestate === this.GAMESTATES.GAMEOVER || this.gamestate === this.GAMESTATES.GAMEWON) return;
+        || this.gamestate === this.GAMESTATES.GAMEOVER || this.gamestate === this.GAMESTATES.GAMEWON
+        || this.gamestate === this.GAMESTATES.NEWLEVEL || this.gamestate === this.GAMESTATES.LOSTLIFE) 
+        return;
 
         if(this.lives === 0) {
             this.gamestate = this.GAMESTATES.GAMEOVER;
@@ -107,7 +125,6 @@ export default class Game {
             else {
                 this.currentLevel++;
                 this.gamestate = this.GAMESTATES.NEWLEVEL;
-                this.start();
             }
         }
     }

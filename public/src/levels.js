@@ -9,6 +9,10 @@ import Brick from "./brick.js";
 //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 // ];
 
+//IDEA: Randomly generated levels!
+
+//for testing
+//const level1 = [[0,0,1,0,0,0]];
 const level1 = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]

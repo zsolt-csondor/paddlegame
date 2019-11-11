@@ -1,7 +1,7 @@
 import {detectCollision} from "./collisionDetection.js";
 
 export default class Brick {
-    constructor(game, position, width, height) {
+    constructor(game, position) {
         this.context = game.context;
         this.game = game;
 

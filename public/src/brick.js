@@ -14,6 +14,14 @@ export default class Brick {
         }
 
         this.markedForDeletion = false;
+
+        this.soundPlayer = game.soundPlayer;
+        this.soundEvents = {
+            paddleCollisionEvt: {
+                type: "collision",
+                eventObject: "brick"
+            }
+        }
     }
 
     draw() {
@@ -26,6 +34,7 @@ export default class Brick {
 
     update() {
         if(detectCollision(this.game.ball, this)) {
+            this.soundPlayer.play(this.soundEvents.paddleCollisionEvt);
             this.markedForDeletion = true;
             this.game.ball.speed.y *= -1;
         }

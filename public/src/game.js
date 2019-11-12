@@ -3,6 +3,7 @@ import Ball from "./ball.js";
 import InputHandler from "./input.js";
 import {buildLevel, levels} from "./levels.js";
 import displayMessageScreen from "./displayMessageScreen.js";
+import SoundPlayer from "./soundPlayer.js";
 
 //TODO: create a config class for the game parameters like width, height, etc.
 //TODO: don't pass the whole game to other components if not necessary
@@ -26,6 +27,8 @@ export default class Game {
         };
         this.gamestate = this.GAMESTATES.MENU;
 
+        this.soundPlayer = new SoundPlayer();
+
         this.ball = new Ball(this);
         this.paddle = new Paddle(this);
         this.inputHandler = new InputHandler(this.paddle, this);
@@ -37,6 +40,7 @@ export default class Game {
 
         this.levels = levels;
         this.currentLevel = 0;
+
     }
 
     start() {
@@ -48,7 +52,7 @@ export default class Game {
                 this.lives = 2;
                 this.ball.resetPosition();
         }
-
+        
         //If we lost a life just stay on the current level
         if(this.gamestate !== this.GAMESTATES.LOSTLIFE) {
             this.bricks = buildLevel(this, this.levels[this.currentLevel]);

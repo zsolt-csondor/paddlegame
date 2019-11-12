@@ -20,6 +20,8 @@ export default class Ball {
 
         //Storing paddle info for collision detection
         this.game = game;
+
+        this.soundPlayer = game.soundPlayer;
     }
 
     resetPosition() {
@@ -65,6 +67,7 @@ export default class Ball {
         }
 
         if(detectCollision(this, this.game.paddle)) {
+            this.soundPlayer.play();
             this.speed.y *= -1;
         }
 

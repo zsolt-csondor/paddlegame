@@ -22,6 +22,20 @@ export default class Ball {
         this.game = game;
 
         this.soundPlayer = game.soundPlayer;
+        this.soundEvents = {
+            paddleCollisionEvt: {
+                type: "collision",
+                eventObject: "paddle"
+            },
+            wallCollisionEvt: {
+                type: "collision",
+                eventObject: "wall"
+            }
+        }
+        this.paddleCollisionEvt = {
+            type: "collision",
+            eventObject: "paddle"
+        }
     }
 
     resetPosition() {
@@ -47,11 +61,13 @@ export default class Ball {
 
         //Left and right walls
         if(this.position.x + this.radius >= this.gameWidth || this.position.x - this.radius <= 0) {
+            this.soundPlayer.play(this.soundEvents.wallCollisionEvt);
             this.speed.x *= - 1;
         }
 
-        //Top and bottom walls
+        //Top wall
         if(this.position.y - this.radius <= 0) {
+            this.soundPlayer.play(this.soundEvents.wallCollisionEvt);
             this.speed.y *= -1;
         }
 
@@ -67,7 +83,8 @@ export default class Ball {
         }
 
         if(detectCollision(this, this.game.paddle)) {
-            this.soundPlayer.play();
+            
+            this.soundPlayer.play(this.soundEvents.paddleCollisionEvt);
             this.speed.y *= -1;
         }
 

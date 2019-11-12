@@ -28,6 +28,15 @@ export default class Game {
         this.gamestate = this.GAMESTATES.MENU;
 
         this.soundPlayer = new SoundPlayer();
+        this.soundEvents = {
+            lifeLostEvt: {
+                type: "lifeLost"
+            },
+            gameOverEvt: {
+                type: "gameOver"
+            }
+        }
+        this.soundPlayed = false;
 
         this.ball = new Ball(this);
         this.paddle = new Paddle(this);
@@ -59,6 +68,7 @@ export default class Game {
         }
 
         this.gamestate = this.GAMESTATES.RUNNING;
+        this.soundPlayed = false;
     }
 
     draw() {
@@ -72,6 +82,9 @@ export default class Game {
             this.ball.resetPosition();
         }
         else if(this.gamestate === this.GAMESTATES.LOSTLIFE) {
+            //Aaaaawwwww..!
+            this.playGameSound(this.soundEvents.lifeLostEvt);
+
             let life = (this.lives === 1) ? "life" : "lives";
             let msg = "You have " + this.lives + " " + life + " left. Press Space to continue";
             displayMessageScreen(msg, this.context);
@@ -88,6 +101,8 @@ export default class Game {
 
         }
         else if(this.gamestate === this.GAMESTATES.GAMEOVER) {
+            this.playGameSound(this.soundEvents.gameOverEvt);
+
             this.context.rect(0, 0, this.gameWidth, this.gameHeight);
             this.context.fillStyle = "#000000";
             this.context.fill();
@@ -137,10 +152,18 @@ export default class Game {
 
     togglePause() {
         if(this.gamestate === this.GAMESTATES.PAUSED) {
+            this.soundPlayed = false;
             this.gamestate = this.GAMESTATES.RUNNING;
         }
         else if(this.gamestate === this.GAMESTATES.RUNNING) {
             this.gamestate = this.GAMESTATES.PAUSED;
+        }
+    }
+
+    playGameSound(soundEvent) {
+        if(!this.soundPlayed) {
+            this.soundPlayer.play(soundEvent);
+            this.soundPlayed = true;
         }
     }
 }

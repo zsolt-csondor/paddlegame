@@ -6,7 +6,7 @@ export default class Ball {
         this.gameWidth = game.gameWidth;
         this.gameHeight = game.gameHeight;
 
-        this.radius = 8;
+        this.radius = this.gameHeight / 80;
 
         this.position = {
             x: this.gameWidth / 2 - this.radius / 2,
@@ -14,8 +14,8 @@ export default class Ball {
         }
 
         this.speed = {
-            x: 4,
-            y: 4
+            x: this.gameWidth / 160,
+            y: this.gameHeight / 160
         }
 
         //Storing paddle info for collision detection

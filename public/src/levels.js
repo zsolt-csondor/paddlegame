@@ -3,16 +3,13 @@ import Brick from "./brick.js";
 
 //IDEA: Different numbers could denote different types of bricks,
 //e.g. 2 could mean a brick that is harder to break, etc.
-// export const level1 = [
-//     [0, 1, 0, 1, 1, 1, 1, 0, 1, 0],
-//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-// ];
 
 //IDEA: Randomly generated levels!
 
 //for testing
-//const level1 = [[0,0,1,0,0,0]];
+// const level1 = [[0,0,0,1,0,0]];
+// const level2 = [[0,0,0,1,0,0]];
+
 const level1 = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]

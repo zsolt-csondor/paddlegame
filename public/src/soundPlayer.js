@@ -36,6 +36,18 @@ export default class SoundPlayer {
                     interval: [0, 4000]
                 }
             }),
+            gameWon:  new Howl({
+                src: ["./assets/game_won.mp3", "./assets/game_won.mp3"],
+                sprite: {
+                    interval: [0, 3200]
+                }
+            }),
+            newLevel:  new Howl({
+                src: ["./assets/new_level.wav", "./assets/new_level.wav"],
+                sprite: {
+                    interval: [0, 3400]
+                }
+            }),
         }
     }
 

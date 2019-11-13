@@ -34,6 +34,12 @@ export default class Game {
             },
             gameOverEvt: {
                 type: "gameOver"
+            },
+            newLevelEvt: {
+                type: "newLevel"
+            },
+            gameWonEvt: {
+                type: "gameWon"
             }
         }
         this.soundPlayed = false;
@@ -78,6 +84,7 @@ export default class Game {
             displayMessageScreen("Paused", this.context);
         }
         else if(this.gamestate === this.GAMESTATES.NEWLEVEL) {
+            this.playGameSound(this.soundEvents.newLevelEvt);
             displayMessageScreen("Level cleared! Press Space to load the next level", this.context);
             this.ball.resetPosition();
         }
@@ -113,6 +120,8 @@ export default class Game {
             this.context.fillText("Game Over :-( Press SPACEBAR to Restart", this.gameWidth / 2, this.gameHeight / 2);
         }
         else if(this.gamestate === this.GAMESTATES.GAMEWON) {
+            this.playGameSound(this.soundEvents.gameWonEvt);
+
             this.context.rect(0, 0, this.gameWidth, this.gameHeight);
             this.context.fillStyle = "#000000";
             this.context.fill();
@@ -120,7 +129,7 @@ export default class Game {
             this.context.font = "30px Arial";
             this.context.fillStyle = "#ffffff";
             this.context.textAlign = "center";
-            this.context.fillText("You Won! :-) Press SPACEBAR to Play Again", this.gameWidth / 2, this.gameHeight / 2);
+            this.context.fillText("You Won! :-) Press Space to Play Again", this.gameWidth / 2, this.gameHeight / 2);
         }
     }
 

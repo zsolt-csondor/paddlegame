@@ -2,7 +2,6 @@ import {Howl, Howler} from 'howler';
 
 export default class SoundPlayer {
     constructor() {
-
         this.sounds = {
             collision: {
                 paddle: new Howl({
@@ -24,6 +23,12 @@ export default class SoundPlayer {
                     }
                 })
             },
+            game_loop: new Howl({
+                src: ["./assets/game_loop.mp3", "./assets/game_loop.mp3"],
+                autoplay: false,
+                loop: true,
+                volume: 0.5
+            }),
             lifeLost:  new Howl({
                 src: ["./assets/life_lost.wav", "./assets/life_lost.wav"],
                 sprite: {
@@ -77,5 +82,13 @@ export default class SoundPlayer {
         else {
             this.sounds[evtType].play("interval");
         }        
+    }
+
+    playGameLoop() {
+        this.sounds.game_loop.play();
+    }
+
+    stopGameLoop() {
+        this.sounds.game_loop.stop();
     }
 }

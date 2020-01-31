@@ -55,7 +55,6 @@ export default class Game {
 
         this.levels = levels;
         this.currentLevel = 0;
-
     }
 
     start() {
@@ -75,6 +74,8 @@ export default class Game {
 
         this.gamestate = this.GAMESTATES.RUNNING;
         this.soundPlayed = false;
+
+        this.soundPlayer.playGameLoop();
     }
 
     draw() {
@@ -84,11 +85,13 @@ export default class Game {
             displayMessageScreen("Paused", this.context);
         }
         else if(this.gamestate === this.GAMESTATES.NEWLEVEL) {
+            this.soundPlayer.stopGameLoop();
             this.playGameSound(this.soundEvents.newLevelEvt);
             displayMessageScreen("Level cleared! Press Space to load the next level", this.context);
             this.ball.resetPosition();
         }
         else if(this.gamestate === this.GAMESTATES.LOSTLIFE) {
+            this.soundPlayer.stopGameLoop();
             //Aaaaawwwww..!
             this.playGameSound(this.soundEvents.lifeLostEvt);
 
@@ -108,6 +111,7 @@ export default class Game {
 
         }
         else if(this.gamestate === this.GAMESTATES.GAMEOVER) {
+            this.soundPlayer.stopGameLoop();
             this.playGameSound(this.soundEvents.gameOverEvt);
 
             this.context.rect(0, 0, this.gameWidth, this.gameHeight);
@@ -163,9 +167,11 @@ export default class Game {
         if(this.gamestate === this.GAMESTATES.PAUSED) {
             this.soundPlayed = false;
             this.gamestate = this.GAMESTATES.RUNNING;
+            this.soundPlayer.playGameLoop();
         }
         else if(this.gamestate === this.GAMESTATES.RUNNING) {
             this.gamestate = this.GAMESTATES.PAUSED;
+            this.soundPlayer.stopGameLoop();
         }
     }
 

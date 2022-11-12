@@ -16,7 +16,7 @@
   "devDependencies": {
     "nodemon": "^1.19.1",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
